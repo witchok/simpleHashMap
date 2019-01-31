@@ -64,6 +64,31 @@ public class SimpleHashMapTest {
     }
 
     @Test
+    void shouldNotRewriteElementsWithCollision(){
+        int key1 = TEST_CAPACITY;
+        long val1 = 1;
+
+        int key2 = TEST_CAPACITY*2;
+        long val2 = 2;
+
+        int key3 = TEST_CAPACITY*4;
+        long val3 = 3;
+
+        simpleHashMap.put(key1,val1);
+        assertEquals(1, simpleHashMap.size());
+        assertEquals(simpleHashMap.get(key1),val1);
+
+        simpleHashMap.put(key2,val2);
+        assertEquals(2, simpleHashMap.size());
+        assertEquals(simpleHashMap.get(key2),val2);
+
+        simpleHashMap.put(key3,val3);
+        assertEquals(3, simpleHashMap.size());
+        assertEquals(simpleHashMap.get(key3),val3);
+
+    }
+
+    @Test
     void shouldThrowNoSuchKeyException(){
         final int key = 1;
 

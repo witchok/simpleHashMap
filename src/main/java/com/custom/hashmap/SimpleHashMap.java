@@ -4,21 +4,37 @@ import com.custom.hashmap.exceptions.HashMapIsFullException;
 import com.custom.hashmap.exceptions.NoSuchKeyException;
 
 
+/**
+ * Simple Open Addressing Hash Map with put, get, size operations
+ */
 public class SimpleHashMap implements SimpleMap {
     public static final int DEFAULT_INITIAL_CAPACITY = 32;
     private int size;
     private int capacity;
     public Entry[] table;
 
+    /**
+     * Constructor which creates HashMap with given capacity
+     * @param capacity capacity of HashMap
+     */
     public SimpleHashMap(int capacity) {
         this.size = 0;
         this.capacity = capacity;
         this.table = new Entry[capacity];
     }
+    /**
+     * Constructor which creates HashMap with DEFAULT_INITIAL_CAPACITY
+     */
     public SimpleHashMap(){
         this(DEFAULT_INITIAL_CAPACITY);
     }
 
+
+    /**
+     * Method puts element with given value under given key in HashMap
+     * @param key given key under which value will be stored
+     * @param value given value to be stored
+     */
     public void put(int key, long value) {
 //        if ((double)size/capacity == 1){
 //            throw new HashMapIsFullException();
@@ -37,6 +53,11 @@ public class SimpleHashMap implements SimpleMap {
         table[hashKey] = new Entry(key, value);
     }
 
+    /**
+     * Method gets value by given key
+     * @param key
+     * @return value for given key
+     */
     public long get(int key) {
         int hashKey = hash(key);
         int counter = 0;
@@ -52,14 +73,25 @@ public class SimpleHashMap implements SimpleMap {
         throw new NoSuchKeyException();
     }
 
+    /**
+     * @return amount of elements in HashMap
+     */
     public int size() {
         return this.size;
     }
 
+    /**
+     * Method for calculating hash for given key
+     * @param key
+     * @return hash for given key
+     */
     private int hash(int key){
         return key % capacity;
     }
 
+    /**
+     * Simple entry for hash map, which has int key and long value
+     */
     static class Entry{
         private final int key;
         private long value;
@@ -80,6 +112,12 @@ public class SimpleHashMap implements SimpleMap {
             this.value = value;
         }
 
+
+        /**
+         * Compare this object for equality with given
+         * @param obj object to compare
+         * @return boolean true if objects are equal otherwise false
+         */
         @Override
         public boolean equals(Object obj) {
             if(obj == this) {
